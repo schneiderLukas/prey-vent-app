@@ -11,7 +11,7 @@ export class SettingsItemComponent {
   setting = input<Setting>();
   @Output() change = new EventEmitter<string>();
 
-  toggle(id: string): void {
-    this.change.emit(id);
+  toggle(): void {
+    this.change.emit();
   }
 }
