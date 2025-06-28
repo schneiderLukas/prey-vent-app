@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, EventEmitter, input, Output, signal } from '@angular/core';
 import { Setting } from '../../models/settings.type';
 
 @Component({
@@ -9,4 +9,9 @@ import { Setting } from '../../models/settings.type';
 })
 export class SettingsItemComponent {
   setting = input<Setting>();
+  @Output() change = new EventEmitter<string>();
+
+  toggle(id: string): void {
+    this.change.emit(id);
+  }
 }

@@ -3,7 +3,6 @@
 </div>
 <div class="mb-3 pb-3 border-bottom">
     @for (settingsItem of settingsItems(); track $index) {
-        <app-settings-item [setting]="settingsItem"/>
-
+        <app-settings-item [setting]="settingsItem" (change)="toggleSetting(settingsItem.id)"/>
     }
 </div>

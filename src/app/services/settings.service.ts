@@ -1,8 +1,12 @@
+import { inject } from '@angular/core';
 import { Setting } from '../models/settings.type';
+import { HttpClient } from '@angular/common/http';
 
 export class SettingsService {
 
-  settingsItems: Array<Setting> = [{
+  http = inject(HttpClient);
+
+  private settingsItems: Array<Setting> = [{
     name: 'Enable Cascade',
     description: 'Enbale automatic prey detection system inlcuding flap lock',
     id: 'cascade-setting-id',
@@ -22,5 +26,18 @@ export class SettingsService {
     disabled: true
   }]
 
-  constructor() { }
+  getSettings(): Array<Setting> {
+    // This method can be used to fetch settings from a server if needed
+    // For now, we return the static settingsItems array
+    return this.settingsItems;
+  }
+  toggleSetting(id: string): void {
+    console.log(`Toggling setting with id: ${id}`);
+    const setting = this.settingsItems.find(s => s.id === id);
+    if (setting) {
+      setting.value = !setting.value;
+      console.log(`Setting ${setting.name} toggled to ${setting.value}`);
+      // Here you can also add logic to save the updated setting to a server if needed
+    }
+  }
 }

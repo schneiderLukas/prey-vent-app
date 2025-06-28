@@ -16,7 +16,10 @@ export class SettingsComponent implements OnInit {
     settingsItems = signal<Array<Setting>>([]);
 
   ngOnInit(): void {
-    this.settingsItems.set(this.settingsService.settingsItems);
+    this.settingsItems.set(this.settingsService.getSettings());
   }
-
+  toggleSetting(id: string): void {
+    this.settingsService.toggleSetting(id);
+    this.settingsItems.set(this.settingsService.getSettings());
+  }
 }
