@@ -9,4 +9,8 @@ import { SettingsComponent } from "../components/settings/settings.component";
 })
 export class HomeComponent {
   homeMessage = signal('Welcome to the Home Component!');
+
+  keyUpHandler(event: KeyboardEvent) {
+    console.log(`You typed ${event.key}`);
+  }
 }
