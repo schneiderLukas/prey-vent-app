@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-settings-item',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './settings-item.component.css'
 })
 export class SettingsItemComponent {
-
+  name = input('Default Name');
+  description = input('Default Description');
+  id = input('settings-item-default-id');
 }
