@@ -2,9 +2,8 @@
     <h2>Settings</h2>
 </div>
 <div class="mb-3 pb-3 border-bottom">
-    <app-settings-item [name]="'Enable Cascade'" [description]="'Enable automatic prey detection system including flap lock'" [id]="'cascade'"/>
-</div>
-<div class="mb-3 pb-3 border-bottom">
-    <app-settings-item [name]="'Lock Inside Direction'" [description]="'Lock the flap to secure no animal is coming in your house'" [id]="'lock-in'"/>
-    <app-settings-item [name]="'Lock Outside Direction'" [description]="'Lock the flap to secure no animal is able to go outside'" [id]="'lock-out'"/>
+    @for (settingsItem of settingsItems(); track $index) {
+        <app-settings-item [setting]="settingsItem"/>
+
+    }
 </div>
