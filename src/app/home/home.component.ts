@@ -1,9 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { SettingsComponent } from "../components/settings/settings.component";
 
 @Component({
   selector: 'app-home',
-  imports: [SettingsComponent],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
