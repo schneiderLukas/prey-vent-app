@@ -7,5 +7,5 @@ import { Component, signal } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  title = signal('Prey Vent App');
+  title = signal('Cat- & Prey Detection System');
 }
