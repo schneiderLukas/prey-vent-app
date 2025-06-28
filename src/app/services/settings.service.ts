@@ -12,13 +12,13 @@ export class SettingsService {
     name: 'Lock Inside Direction',
     description: 'Lock the flap to secure no animal is coming in your house',
     id: 'lock-inside-setting-id',
-    value: true, // Optional, can be omitted if not needed
+    value: false, // Optional, can be omitted if not needed
     disabled: true // Optional, can be omitted if not needed
   },{
     name: 'Lock Outside Direction',
     description: 'Lock the flap to secure no animal is going out of your house',
     id: 'lock-outside-setting-id',
-    value: true, // Optional, can be omitted if not needed
+    value: false, // Optional, can be omitted if not needed
     disabled: true
   }]
 
