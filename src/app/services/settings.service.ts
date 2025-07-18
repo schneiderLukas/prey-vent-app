@@ -1,8 +1,11 @@
 import { inject } from '@angular/core';
 import { Setting } from '../models/settings.type';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
 
 export class SettingsService {
+
+  constructor(apiService: ApiService) {}
 
   http = inject(HttpClient);
 
@@ -40,4 +43,7 @@ export class SettingsService {
       // Here you can also add logic to save the updated setting to a server if needed
     }
   }
+
+  
+
 }
