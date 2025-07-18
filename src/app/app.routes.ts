@@ -10,3 +10,7 @@ export const routes: Routes = [{
     pathMatch: 'full',
     loadComponent: () => import('./settings/settings.component').then(m => m.SettingsComponent)
 }];
+
+
+// Note: This file defines the routes for the application.
+// next step is to create the components for the login and the registration pages.
