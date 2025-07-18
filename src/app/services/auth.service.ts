@@ -14,7 +14,7 @@ export class AuthService {
     const formData = new FormData();
     formData.append('username', credentials.username);
     formData.append('password', credentials.password);
-    return this.api.post<{token: string }>('login', formData).pipe(
+    return this.api.login<{token: string }>(formData).pipe(
       tap(response => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);

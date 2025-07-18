@@ -22,18 +22,29 @@ export class ApiService {
   } 
 
   get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.url}/${endpoint}`, {});
+    return this.http.get<T>(`${this.url}/${endpoint}`, {
+      headers: this.getAuthHeaders()});
   }
 
   post<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.post<T>(`${this.url}/${endpoint}`, body, {})}
+    return this.http.post<T>(`${this.url}/${endpoint}`, body, {
+      headers: this.getAuthHeaders()});
+  }
 
   put<T>(endpoint: string, body: any): Observable<T> {
-    return this.http.put<T>(`${this.url}/${endpoint}`, body, {});
+    return this.http.put<T>(`${this.url}/${endpoint}`, body, {
+      headers: this.getAuthHeaders()});
   }
 
   delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.url}/${endpoint}`, {});
+    return this.http.delete<T>(`${this.url}/${endpoint}`, {
+      headers: this.getAuthHeaders()});
+  }
+
+  login<T>(formData: FormData): Observable<T> {
+    return this.http.post<T>(`${this.url}/login`, formData, {
+      
+    });
   }
   
 }
