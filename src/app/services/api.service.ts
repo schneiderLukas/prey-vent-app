@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment.development'; // Adjust the import based on your environment setup
 
-// @Injectable({
-//   providedIn: 'root'
-// })
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
 
   private url: string = environment.apiUrl;
