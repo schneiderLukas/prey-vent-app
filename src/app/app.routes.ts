@@ -9,7 +9,13 @@ export const routes: Routes = [{
     path: 'settings',
     pathMatch: 'full',
     loadComponent: () => import('./settings/settings.component').then(m => m.SettingsComponent)
-}];
+},
+{
+    path: 'login',
+    pathMatch: 'full',
+    loadComponent: () => import('./login/login.component').then(m => m.LoginComponent)
+}
+];
 
 
 // Note: This file defines the routes for the application.
