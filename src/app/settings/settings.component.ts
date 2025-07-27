@@ -20,6 +20,6 @@ export class SettingsComponent implements OnInit {
   }
   toggleSetting(id: string): void {
     this.settingsService.toggleSetting(id);
-    this.settingsItems.set(this.settingsService.getSettings());
+    //this.settingsItems.set(this.settingsService.getSettings());
   }
 }

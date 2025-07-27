@@ -15,8 +15,7 @@ export class ApiService {
   private getAuthHeaders(token?: string): HttpHeaders {
     const jwt = token || localStorage.getItem('token');
     return new HttpHeaders({
-      'Authorization': jwt ? `Bearer ${jwt}` : '',
-      'Content-Type': 'application/json'
+      'Authorization': jwt ? `Bearer ${jwt}` : ''
     });
 
   } 
@@ -39,6 +38,12 @@ export class ApiService {
   delete<T>(endpoint: string): Observable<T> {
     return this.http.delete<T>(`${this.url}/${endpoint}`, {
       headers: this.getAuthHeaders()});
+  }
+
+  toggleSetting<T>(formData: FormData): Observable<T> {
+    return this.http.post<T>(`${this.url}/toggle`, formData, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   login<T>(formData: FormData): Observable<T> {

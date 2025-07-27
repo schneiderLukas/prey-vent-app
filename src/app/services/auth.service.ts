@@ -14,10 +14,10 @@ export class AuthService {
     const formData = new FormData();
     formData.append('username', credentials.username);
     formData.append('password', credentials.password);
-    return this.api.login<{token: string }>(formData).pipe(
+    return this.api.login<{access_token: string }>(formData).pipe(
       tap(response => {
-        if (response && response.token) {
-          localStorage.setItem('token', response.token);
+        if (response && response.access_token) {
+          localStorage.setItem('token', response.access_token);
         }
       })
     );

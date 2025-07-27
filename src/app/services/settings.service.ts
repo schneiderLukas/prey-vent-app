@@ -1,11 +1,14 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Setting } from '../models/settings.type';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class SettingsService {
 
-  constructor(apiService: ApiService) {}
+  constructor(private api: ApiService) {}
 
   http = inject(HttpClient);
 
@@ -20,13 +23,13 @@ export class SettingsService {
     description: 'Lock the flap to secure no animal is coming in your house',
     id: 'lock-inside-setting-id',
     value: false, // Optional, can be omitted if not needed
-    disabled: true // Optional, can be omitted if not needed
+    disabled: false // Optional, can be omitted if not needed
   },{
     name: 'Lock Outside Direction',
     description: 'Lock the flap to secure no animal is going out of your house',
     id: 'lock-outside-setting-id',
     value: false, // Optional, can be omitted if not needed
-    disabled: true
+    disabled: false
   }]
 
   getSettings(): Array<Setting> {
@@ -37,13 +40,20 @@ export class SettingsService {
   toggleSetting(id: string): void {
     console.log(`Toggling setting with id: ${id}`);
     const setting = this.settingsItems.find(s => s.id === id);
-    if (setting) {
-      setting.value = !setting.value;
-      console.log(`Setting ${setting.name} toggled to ${setting.value}`);
-      // Here you can also add logic to save the updated setting to a server if needed
+    if (!setting) {
+      console.error(`Setting with id ${id} not found`);
+      return;
     }
-  }
 
-  
+    const formData = new FormData();
+    formData.append('id', id);
+
+    this.api.post("toggle", formData).subscribe({
+      next: (response) => {
+        console.log(`Setting ${id} toggled successfully:`, response);
+        setting.value = (response as boolean); // Assuming the response contains the updated value
+      }
+    });
+  }
 
 }
