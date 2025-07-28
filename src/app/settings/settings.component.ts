@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, signal } from '@angular/core';
 import { SettingsItemComponent } from "../components/settings-item/settings-item.component";
 import { SettingsService } from '../services/settings.service';
 import { Setting } from '../models/settings.type';
@@ -11,12 +11,14 @@ import { Setting } from '../models/settings.type';
   providers: [SettingsService]
   
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements AfterViewInit {
     settingsService = inject(SettingsService);
     settingsItems = signal<Array<Setting>>([]);
 
-  ngOnInit(): void {
-    this.settingsItems.set(this.settingsService.getSettings());
+  ngAfterViewInit(): void {
+    if(typeof window !== 'undefined') {
+      this.settingsItems.set(this.settingsService.getSettings());
+    }
   }
   toggleSetting(id: string): void {
     this.settingsService.toggleSetting(id);

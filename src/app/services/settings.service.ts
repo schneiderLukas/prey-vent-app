@@ -22,17 +22,29 @@ export class SettingsService {
     name: 'Lock Inside Direction',
     description: 'Lock the flap to secure no animal is coming in your house',
     id: 'lock-inside-setting-id',
-    value: false, // Optional, can be omitted if not needed
     disabled: false // Optional, can be omitted if not needed
   },{
     name: 'Lock Outside Direction',
     description: 'Lock the flap to secure no animal is going out of your house',
     id: 'lock-outside-setting-id',
-    value: false, // Optional, can be omitted if not needed
     disabled: false
   }]
 
   getSettings(): Array<Setting> {
+    this.api.get("door-state").subscribe({
+      next: (response) => {
+        const inwardLocked = (response as {inward_locked: boolean}).inward_locked;
+        const outwardLocked = (response as {outward_locked: boolean}).outward_locked;
+
+        this.settingsItems.forEach(setting => {
+          if (setting.id === 'lock-inside-setting-id') {
+            setting.value = inwardLocked;
+          } else if (setting.id === 'lock-outside-setting-id') {
+            setting.value = outwardLocked;
+          }
+        });
+  }})
+
     // This method can be used to fetch settings from a server if needed
     // For now, we return the static settingsItems array
     return this.settingsItems;
