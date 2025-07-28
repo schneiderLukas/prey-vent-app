@@ -5,6 +5,6 @@
     </div>
     <div class="form-check form-switch ms-4">
         <input class="form-check-input" type="checkbox" id={{setting()?.id}} [checked]="setting()?.value" [disabled]="setting()?.disabled" 
-               (change)="toggle()" />
+               (click)="toggle()" />
     </div>
 </div>

@@ -51,7 +51,8 @@ export class SettingsService {
     this.api.post("toggle", formData).subscribe({
       next: (response) => {
         console.log(`Setting ${id} toggled successfully:`, response);
-        setting.value = (response as boolean); // Assuming the response contains the updated value
+        setting.value = (response as {value: boolean}).value; // Assuming the response contains the updated value
+        console.log(`Updated setting value: ${setting.value}`);
       }
     });
   }

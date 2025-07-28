@@ -9,9 +9,9 @@ import { Setting } from '../../models/settings.type';
 })
 export class SettingsItemComponent {
   setting = input<Setting>();
-  @Output() change = new EventEmitter<string>();
+  @Output() click = new EventEmitter<string>();
 
   toggle(): void {
-    this.change.emit();
+    this.click.emit();
   }
 }
