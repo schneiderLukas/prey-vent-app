@@ -40,12 +40,6 @@ export class ApiService {
       headers: this.getAuthHeaders()});
   }
 
-  toggleSetting<T>(formData: FormData): Observable<T> {
-    return this.http.post<T>(`${this.url}/toggle`, formData, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
   login<T>(formData: FormData): Observable<T> {
     return this.http.post<T>(`${this.url}/login`, formData, {
       
