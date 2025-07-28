@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,12 @@ import { Component, signal } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+
+  constructor(private authService: AuthService) {}
+
   title = signal('Cat- & Prey Detection System');
+
+  onLogout(): void {
+    this.authService.logout();
+  }
 }
