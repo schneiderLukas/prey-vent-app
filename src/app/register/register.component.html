@@ -1,1 +1,18 @@
-<p>register works!</p>
+<div class="form-register w-100 m-auto register-border">
+    <form (ngSubmit)="register()">
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" required [(ngModel)]="username">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingInput" placeholder="password" name="password" required [(ngModel)]="password">
+            <label for="floatingInput">Password</label>
+        </div>
+        <div class="form-floating">
+            <input type="confirm-password" class="form-control" id="floatingInput" placeholder="confirm password" name="confirmPassword" required [(ngModel)]="confirmPassword">
+            <label for="floatingInput">Confirm Password</label>
+        </div>
+        <button type="submit" class="btn btn-dark my-3 w-100">Register</button>
+    </form>
+</div>
