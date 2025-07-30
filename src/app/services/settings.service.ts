@@ -8,7 +8,7 @@ import { ApiService } from './api.service';
 })
 export class SettingsService {
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   http = inject(HttpClient);
 
@@ -18,12 +18,12 @@ export class SettingsService {
     id: 'cascade-setting-id',
     value: true, // Optional, can be omitted if not needed
     disabled: false // Optional, can be omitted if not needed
-  },{
+  }, {
     name: 'Lock Inside Direction',
     description: 'Lock the flap to secure no animal is coming in your house',
     id: 'lock-inside-setting-id',
     disabled: false // Optional, can be omitted if not needed
-  },{
+  }, {
     name: 'Lock Outside Direction',
     description: 'Lock the flap to secure no animal is going out of your house',
     id: 'lock-outside-setting-id',
@@ -33,8 +33,8 @@ export class SettingsService {
   getSettings(): Array<Setting> {
     this.api.get("door-state").subscribe({
       next: (response) => {
-        const inwardLocked = (response as {inward_locked: boolean}).inward_locked;
-        const outwardLocked = (response as {outward_locked: boolean}).outward_locked;
+        const inwardLocked = (response as { inward_locked: boolean }).inward_locked;
+        const outwardLocked = (response as { outward_locked: boolean }).outward_locked;
 
         this.settingsItems.forEach(setting => {
           if (setting.id === 'lock-inside-setting-id') {
@@ -43,8 +43,19 @@ export class SettingsService {
             setting.value = outwardLocked;
           }
         });
-  }})
+      }
+    })
 
+    this.api.get("inference-state").subscribe({
+      next: (response) => {
+        const cascadeEnabled = (response as { inference_running: boolean }).inference_running;
+        this.settingsItems.forEach(setting => {
+          if (setting.id === 'cascade-setting-id') {
+            setting.value = cascadeEnabled;
+          }
+        });
+      }
+    });
     // This method can be used to fetch settings from a server if needed
     // For now, we return the static settingsItems array
     return this.settingsItems;
@@ -63,7 +74,7 @@ export class SettingsService {
     this.api.post("toggle", formData).subscribe({
       next: (response) => {
         console.log(`Setting ${id} toggled successfully:`, response);
-        setting.value = (response as {value: boolean}).value; // Assuming the response contains the updated value
+        setting.value = (response as { value: boolean }).value; // Assuming the response contains the updated value
         console.log(`Updated setting value: ${setting.value}`);
       }
     });
