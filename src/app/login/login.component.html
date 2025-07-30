@@ -1,12 +1,17 @@
-<form (ngSubmit)="login()" class="login-form">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" class="form-control" [(ngModel)]="username" name="username" required>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-
-</form>
+<div class="form-signin w-100 m-auto login-border">
+    <form (ngSubmit)="login()">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" required [(ngModel)]="username">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingInput" placeholder="password" name="password" required [(ngModel)]="password">
+            <label for="floatingInput">Password</label>
+        </div>
+        <button type="submit" class="btn btn-dark my-3 w-100">Login</button>
+        <div class="text-center">
+            <a href="/register">Don't have an account? Register</a>
+        </div>
+    </form>
+</div>
