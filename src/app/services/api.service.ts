@@ -42,7 +42,13 @@ export class ApiService {
 
   login<T>(formData: FormData): Observable<T> {
     return this.http.post<T>(`${this.url}/login`, formData, {
-      
+      withCredentials: true,
+    });
+  }
+
+  register<T>(formData: FormData): Observable<T> {
+    return this.http.post<T>(`${this.url}/register`, formData, {
+      withCredentials: true,
     });
   }
   

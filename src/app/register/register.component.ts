@@ -17,7 +17,22 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
-    
+    this.authService.register({username: this.username, password: this.password, confirmPassword: this.confirmPassword}).subscribe(
+      {
+        next: (response: any) => {
+          if (response.access_token) {
+            localStorage.setItem('token', response.access_token);
+            this.router.navigate(['/settings']);
+          } else {
+            alert('Registration failed. Please try again.');
+          }
+        },
+        error: (error: any) => {
+          console.error('Registration failed', error);
+          alert('Registration failed. Please check your details and try again.');
+        }
+      }
+    )
   }
 
 }
