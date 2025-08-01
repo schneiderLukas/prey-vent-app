@@ -16,7 +16,7 @@ export class SettingsService {
     name: 'Enable Cascade',
     description: 'Enbale automatic prey detection system inlcuding flap lock',
     id: 'cascade-setting-id',
-    value: true, // Optional, can be omitted if not needed
+    value: false, // Optional, can be omitted if not needed
     disabled: false // Optional, can be omitted if not needed
   }, {
     name: 'Lock Inside Direction',
@@ -53,9 +53,13 @@ export class SettingsService {
           if (setting.id === 'cascade-setting-id') {
             setting.value = cascadeEnabled;
           }
+          this.toggleDoorButtons();
         });
       }
     });
+
+
+
     // This method can be used to fetch settings from a server if needed
     // For now, we return the static settingsItems array
     return this.settingsItems;
@@ -76,8 +80,23 @@ export class SettingsService {
         console.log(`Setting ${id} toggled successfully:`, response);
         setting.value = (response as { value: boolean }).value; // Assuming the response contains the updated value
         console.log(`Updated setting value: ${setting.value}`);
+
+        this.getSettings(); // Refresh settings after toggling
+        this.toggleDoorButtons();
       }
     });
+  }
+
+  toggleDoorButtons(): void {
+    const cascadeSetting = this.settingsItems.find(s => s.id === 'cascade-setting-id');
+    if (!cascadeSetting) {
+      console.error('Cascade setting not found');
+      return;
+    }
+
+    this.settingsItems.find(s => s.id === 'lock-inside-setting-id')!.disabled = cascadeSetting.value;
+    this.settingsItems.find(s => s.id === 'lock-outside-setting-id')!.disabled = cascadeSetting.value;
+
   }
 
 }
