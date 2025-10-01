@@ -17,7 +17,7 @@ export class GalleryService {
   constructor(private api: ApiService) { }
     
 
-  loadAlbums() : Array<Album> {
+  loadAlbums() : Array<Album> { // Replace with actual API call 
     return [
       {
         src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
