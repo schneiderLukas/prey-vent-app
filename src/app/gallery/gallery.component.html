@@ -1,1 +1,6 @@
-<p>gallery works!</p>
+<div class="gallery">
+  <div *ngFor="let image of albums(); let i = index">
+    <img [src]="image.thumb" (click)="open(i)" style="cursor:pointer;">
+    <p>{{ i + 1 }}: {{ image.caption }}</p>
+  </div>
+</div>
