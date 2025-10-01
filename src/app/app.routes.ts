@@ -22,6 +22,12 @@ export const routes: Routes = [{
     path: 'register',
     pathMatch: 'full',
     loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent)
+},
+{
+    path: 'gallery',
+    pathMatch: 'full',
+    loadComponent: () => import('./gallery/gallery.component').then(m => m.GalleryComponent),
+    // canActivate: [authGuard]
 }
 ];
 
