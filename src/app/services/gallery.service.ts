@@ -4,7 +4,7 @@ import { ApiService } from './api.service';
 export interface Album {
   src: string;
   thumb: string;
-  caption: string;
+  category: string;
 }
 
 @Injectable({
@@ -17,27 +17,27 @@ export class GalleryService {
   constructor(private api: ApiService) { }
     
 
-  loadAlbums() : Array<Album> { // Replace with actual API call 
+  images() : Array<Album> { // Replace with actual API call 
     return [
       {
         src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
         thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        caption: 'Cute Kitten 1'
+        category: 'cat_without_prey'
       },
       {
         src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
         thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        caption: 'Cute Kitten 1'
+        category: 'cat_without_prey'
       },
       {
         src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
         thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        caption: 'Cute Kitten 1'
+        category: 'cat_with_prey'
       },
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        caption: 'Cute Kitten 1'
+        src: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
+        thumb: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
+        category: 'cat_with_prey'
       }
     ]
   }

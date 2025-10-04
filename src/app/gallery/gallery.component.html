@@ -1,6 +1,39 @@
-<div class="gallery">
-  <div *ngFor="let image of albums(); let i = index">
-    <img [src]="image.thumb" (click)="open(i)" style="cursor:pointer;">
-    <p>{{ i + 1 }}: {{ image.caption }}</p>
+<!-- Fixed Category Selector -->
+<div class="sticky-top bg-white border-bottom py-3 mb-4">
+  <div class="container d-flex gap-3 align-items-center">
+    <label class="fw-bold mb-0">Select Category:</label>
+    <select
+      class="form-select w-auto"
+      [value]="selectedCategory()"
+      (change)="selectCategory($any($event.target).value)"
+    >
+      <option value="cat_with_prey">Cat with Prey</option>
+      <option value="cat_without_prey">Cat without Prey</option>
+    </select>
+  </div>
+</div>
+
+<!-- Thumbnails -->
+<div class="container">
+  <div class="row">
+    @for (image of filteredImages(); track $index) {
+      <div class="col-3 mb-3">
+        <img
+          [src]="image.thumb"
+          class="img-thumbnail"
+          style="cursor:pointer;"
+          (click)="open(image)"
+        />
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-center">
+      <img [src]="currentImage()?.src" class="img-fluid rounded" />
+    </div>
   </div>
 </div>

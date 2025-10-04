@@ -1,32 +1,42 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GalleryService, Album } from '../services/gallery.service';
-import { Lightbox, LightboxModule} from 'ngx-lightbox';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-gallery',
-  imports: [CommonModule, LightboxModule],
+  imports: [CommonModule],
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.css'
 })
 export class GalleryComponent {
 
-  albums = signal<Album[]>([]); // Signal holding your albums
+  selectedCategory = signal<'cat_with_prey' | 'cat_without_prey'>('cat_with_prey');
+
+  currentImage = signal<{ src: string; thumb: string } | null>(null);
+
+  // images = signal<Album[]>([]); // Signal holding your albums
 
 
-  constructor(private lightbox: Lightbox, private galleryService: GalleryService) { }
+  constructor(private galleryService: GalleryService) { }
 
+  filteredImages = computed(() =>
+    this.galleryService.images().filter(img => img.category === this.selectedCategory())
+  );
 
-  ngOnInit(): void {
-    this.albums.set(this.galleryService.loadAlbums());
+  selectCategory(category: 'cat_with_prey' | 'cat_without_prey') {
+    this.selectedCategory.set(category);
+  }
+  // ngOnInit(): void {
+  //   this.images.set(this.galleryService.images());
+  // }
+
+  open(image: any) {
+    this.currentImage.set(image);
+    const modal = new bootstrap.Modal(document.getElementById('lightboxModal')!);
+    modal.show();
   }
 
-  open(index: number): void {
-    this.lightbox.open(this.albums(), index);
-  }
 
-  close(): void {
-    this.lightbox.close();
-  }
 
 }
