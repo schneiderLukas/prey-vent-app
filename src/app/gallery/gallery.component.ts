@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GalleryService, Album } from '../services/gallery.service';
+import { GalleryService, Image } from '../services/gallery.service';
 declare var bootstrap: any;
 
 @Component({
@@ -13,7 +13,7 @@ export class GalleryComponent {
 
   selectedCategory = signal<'prey' | 'no-prey'>('prey');
 
-  currentImage = signal<{ src: string; thumb: string } | null>(null);
+  currentImage = signal<{ id: string; url: string } | null>(null);
 
   // images = signal<Album[]>([]); // Signal holding your albums
 
