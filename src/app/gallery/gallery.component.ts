@@ -11,7 +11,7 @@ declare var bootstrap: any;
 })
 export class GalleryComponent {
 
-  selectedCategory = signal<'cat_with_prey' | 'cat_without_prey'>('cat_with_prey');
+  selectedCategory = signal<'prey' | 'no-prey'>('prey');
 
   currentImage = signal<{ src: string; thumb: string } | null>(null);
 
@@ -21,11 +21,11 @@ export class GalleryComponent {
   constructor(private galleryService: GalleryService) { }
 
   filteredImages = computed(() =>
-    this.galleryService.images().filter(img => img.category === this.selectedCategory())
+    this.galleryService.images().filter(img => img.type === this.selectedCategory())
   );
 
-  selectCategory(category: 'cat_with_prey' | 'cat_without_prey') {
-    this.selectedCategory.set(category);
+  selectCategory(type: 'prey' | 'no-prey') {
+    this.selectedCategory.set(type);
   }
   // ngOnInit(): void {
   //   this.images.set(this.galleryService.images());

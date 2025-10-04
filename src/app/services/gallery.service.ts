@@ -2,9 +2,10 @@ import { Injectable, signal } from '@angular/core';
 import { ApiService } from './api.service';
 
 export interface Album {
-  src: string;
-  thumb: string;
-  category: string;
+  id: string;
+  url: string;
+  type: 'prey' | 'no-prey';
+  timestamp: Date;
 }
 
 @Injectable({
@@ -20,24 +21,28 @@ export class GalleryService {
   images() : Array<Album> { // Replace with actual API call 
     return [
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        category: 'cat_without_prey'
+        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        type: 'no-prey',
+        timestamp: new Date()
       },
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        category: 'cat_without_prey'
+        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        type: 'no-prey',
+        timestamp: new Date()
       },
       {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        thumb: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        category: 'cat_with_prey'
+        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
+        type: 'no-prey',
+        timestamp: new Date()
       },
       {
-        src: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
-        thumb: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
-        category: 'cat_with_prey'
+        id: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
+        url: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
+        type: 'prey',
+        timestamp: new Date()
       }
     ]
   }

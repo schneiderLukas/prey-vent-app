@@ -7,8 +7,8 @@
       [value]="selectedCategory()"
       (change)="selectCategory($any($event.target).value)"
     >
-      <option value="cat_with_prey">Cat with Prey</option>
-      <option value="cat_without_prey">Cat without Prey</option>
+      <option value="prey">Cat with Prey</option>
+      <option value="no-prey">Cat without Prey</option>
     </select>
   </div>
 </div>
@@ -19,7 +19,7 @@
     @for (image of filteredImages(); track $index) {
       <div class="col-3 mb-3">
         <img
-          [src]="image.thumb"
+          [src]="image.url"
           class="img-thumbnail"
           style="cursor:pointer;"
           (click)="open(image)"
