@@ -1,11 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import { ApiService } from './api.service';
+import { HttpParams } from '@angular/common/http';
+import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
-export interface Album {
+export interface Image {
   id: string;
   url: string;
-  type: 'prey' | 'no-prey';
-  timestamp: Date;
+  isPrey: boolean;
+  // timestamp: Date;
 }
 
 @Injectable({
@@ -13,37 +16,48 @@ export interface Album {
 })
 export class GalleryService {
 
-  albums = signal<Album[]>([]); // Signal holding your albums
+  private _images = signal<Image[]>([]); // Signal holding your albums
+  images = this._images.asReadonly();
+  private blobCache = new Map<string, string>(); // cache filenames -> blob URLs
   
   constructor(private api: ApiService) { }
-    
 
-  images() : Array<Album> { // Replace with actual API call 
-    return [
-      {
-        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        type: 'no-prey',
-        timestamp: new Date()
-      },
-      {
-        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        type: 'no-prey',
-        timestamp: new Date()
-      },
-      {
-        id: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-        type: 'no-prey',
-        timestamp: new Date()
-      },
-      {
-        id: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
-        url: 'https://www.bigfootdigital.co.uk/wp-content/uploads/2020/07/image-optimisation-scaled.jpg',
-        type: 'prey',
-        timestamp: new Date()
-      }
-    ]
+  // Example method to fetch images from an API
+  fetchImages(isPrey: boolean): void {
+    // Fetch metadata (list of filenames)
+    this.api.get<{ filename: string; isPrey: boolean }[]>('pictures', { isPrey })
+      .subscribe(items => {
+        const imageRequests: Observable<Image>[] = items.map(item => {
+          const cachedUrl = this.blobCache.get(item.filename);
+
+          if (cachedUrl) {
+            // Return cached blob URL
+            return of({
+              id: item.filename,
+              url: cachedUrl,
+              isPrey: item.isPrey
+            });
+          }
+
+          // Otherwise, fetch blob from API
+          return this.api.getBlob<Blob>('pictures/' + item.filename,{}).pipe(
+            map((blob: Blob) => {
+              const url = URL.createObjectURL(blob);
+              this.blobCache.set(item.filename, url);
+              return { id: item.filename, url, isPrey: item.isPrey };
+            })
+          );
+        });
+
+        // Wait until all blobs are loaded
+        forkJoin(imageRequests).subscribe(images => {
+          this._images.set(images);
+        });
+      });
+  }
+
+  clearCache(): void {
+    this.blobCache.forEach(url => URL.revokeObjectURL(url));
+    this.blobCache.clear();
   }
 }

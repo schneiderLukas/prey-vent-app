@@ -1,5 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, computed, effect, signal, untracked } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { GalleryService, Image } from '../services/gallery.service';
 declare var bootstrap: any;
 
@@ -11,25 +11,43 @@ declare var bootstrap: any;
 })
 export class GalleryComponent {
 
-  selectedCategory = signal<'prey' | 'no-prey'>('prey');
-
+  selectedCategory = signal<boolean>(true); // true for 'prey', false for 'no-prey'
+  // filteredImages = signal<Image[]>([]);
   currentImage = signal<{ id: string; url: string } | null>(null);
-
+  images = signal<Image[]>([]);
+  
   // images = signal<Album[]>([]); // Signal holding your albums
+  
+  
+  constructor(private galleryService: GalleryService) { 
+    effect(() => {
+      this.images.set(this.galleryService.images());
+      // this.filteredImages.set(this.images().filter(img => img.isPrey === this.selectedCategory()))
+      // this.filteredImages = 
+    });
+    
+  }
 
-
-  constructor(private galleryService: GalleryService) { }
+  
 
   filteredImages = computed(() =>
-    this.galleryService.images().filter(img => img.type === this.selectedCategory())
+    this.images().filter(img => img.isPrey === untracked(this.selectedCategory))
   );
 
-  selectCategory(type: 'prey' | 'no-prey') {
-    this.selectedCategory.set(type);
+  selectCategory(isPrey: any) {
+    const boolValue = (isPrey === "true" || isPrey === true);
+    this.selectedCategory.set(boolValue);
+    this.loadImages();
   }
-  // ngOnInit(): void {
-  //   this.images.set(this.galleryService.images());
-  // }
+  ngAfterViewInit(): void {
+    if(typeof window !== 'undefined') {
+      this.loadImages();
+    }
+  }
+
+  loadImages() {
+    this.galleryService.fetchImages(this.selectedCategory());
+  }
 
   open(image: any) {
     this.currentImage.set(image);
