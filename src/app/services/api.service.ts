@@ -20,9 +20,12 @@ export class ApiService {
 
   } 
 
-  get<T>(endpoint: string): Observable<T> {
+  get<T>(endpoint: string, params?: any, responseType? :any): Observable<T> {
     return this.http.get<T>(`${this.url}/${endpoint}`, {
-      headers: this.getAuthHeaders()});
+      headers: this.getAuthHeaders(),
+      params,
+      responseType,
+    });
   }
 
   post<T>(endpoint: string, body: any): Observable<T> {
@@ -51,5 +54,11 @@ export class ApiService {
       withCredentials: true,
     });
   }
-  
+  getBlob<T>(endpoint: string, params?: any): Observable<T> {
+    return this.http.get<T>(`${this.url}/${endpoint}`, {
+      headers: this.getAuthHeaders(),
+      params,
+      responseType: 'blob' as 'json'
+    });
+  }  
 }
