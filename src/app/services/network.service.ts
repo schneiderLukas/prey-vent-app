@@ -29,7 +29,7 @@ export class NetworkService {
         console.error('Error fetching networks', err);
         return of({ availableNetworks: [] });
       }),
-      map(response => response.availableNetworks)
+      map(response => response?.availableNetworks ?? [])
     );
   }
   connectToWifi(Credentials: Credentials): Observable<ConnectResponse> {
