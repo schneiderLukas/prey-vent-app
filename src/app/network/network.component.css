@@ -1,0 +1,7 @@
+@import '../login/login.component.css';
+
+.form-signin select {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
