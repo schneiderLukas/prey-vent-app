@@ -17,11 +17,11 @@
 <div class="container">
   <div class="row">
     @for (image of filteredImages(); track $index) {
-      <div class="col-3 mb-3">
+      <div class="col-3 mb-3 d-flex justify-content-center" style="height: 200px;">
         <img
           [src]="image.url"
           class="img-thumbnail"
-          style="cursor:pointer;"
+          style="cursor:pointer; max-width: 100%; max-height: 100%;"
           (click)="open(image)"
         />
       </div>

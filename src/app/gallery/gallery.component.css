@@ -4,6 +4,8 @@
 
 .img-thumbnail {
   transition: transform 0.2s ease;
+  padding: 0;
+  border: 0;
 }
 
 .img-thumbnail:hover {
