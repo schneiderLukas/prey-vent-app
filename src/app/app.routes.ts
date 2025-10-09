@@ -28,6 +28,12 @@ export const routes: Routes = [{
     pathMatch: 'full',
     loadComponent: () => import('./gallery/gallery.component').then(m => m.GalleryComponent),
     // canActivate: [authGuard]
+},
+{
+    path: 'wifi',
+    pathMatch: 'full',
+    loadComponent: () => import('./network/network.component').then(m => m.NetworkComponent),
+    // canActivate: [authGuard]
 }
 ];
 
