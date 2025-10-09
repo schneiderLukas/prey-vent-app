@@ -1,1 +1,49 @@
-<p>network works!</p>
+<div class="form-signin w-100 m-auto login-border">
+  <form (ngSubmit)="connect()">
+    <h1 class="h3 mb-3 fw-normal">Connect to Wi-Fi</h1>
+
+    <div class="form-floating mb-3">
+      <select
+        class="form-select"
+        id="ssidSelect"
+        name="ssid"
+        [(ngModel)]="selectedSSID"
+        required
+      >
+        <option value="" disabled selected>Select a network</option>
+        <option *ngFor="let net of availableNetworks" [value]="net.ssid">
+          {{ net.ssid }} 
+          ({{ net.signal }}%) 
+          <span *ngIf="net.secure">🔒</span>
+        </option>
+      </select>
+      <label for="ssidSelect">Available Networks</label>
+    </div>
+
+    <div class="form-floating">
+      <input
+        type="password"
+        class="form-control"
+        id="wifiPassword"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="password"
+        [required]="isPasswordRequired()"
+      />
+      <label for="wifiPassword">Wi-Fi Password</label>
+    </div>
+
+    <button type="submit" class="btn btn-dark my-3 w-100" [disabled]="loading">
+      <span *ngIf="!loading">Connect</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+    </button>
+
+    <div class="text-center">
+      <a href="/login">Back to Login</a>
+    </div>
+
+    <div *ngIf="message" class="alert alert-info mt-3 text-center py-2">
+      {{ message }}
+    </div>
+  </form>
+</div>
