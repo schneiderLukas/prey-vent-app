@@ -27,7 +27,7 @@ export const routes: Routes = [{
     path: 'gallery',
     pathMatch: 'full',
     loadComponent: () => import('./gallery/gallery.component').then(m => m.GalleryComponent),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
 },
 {
     path: 'wifi',
