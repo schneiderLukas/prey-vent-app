@@ -34,6 +34,11 @@ export const routes: Routes = [{
     pathMatch: 'full',
     loadComponent: () => import('./network/network.component').then(m => m.NetworkComponent),
     // canActivate: [authGuard]
+},
+{
+    path: 'live-stream',
+    pathMatch: 'full',
+    loadComponent: () => import('./livestream/livestream.component').then(m => m.LivestreamComponent),
 }
 ];
 
