@@ -16,7 +16,7 @@ export class LivestreamComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.refreshImage();
-    this.intervalId = setInterval(() => {this.refreshImage(); }, 100);
+    this.intervalId = setInterval(() => {this.refreshImage(); }, 1000);
   }
 
   ngOnDestroy(): void {
